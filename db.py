@@ -21,26 +21,26 @@ def criar_tabela():
                        poltrona INTEGER, 
                        sessao INTEGER, 
                        meia INTEGER)""")
-        
+
         cursor.execute(""" CREATE TABLE IF NOT EXISTS filmes
                        (ID INTEGER PRIMARY KEY,
                        nome TEXT, 
                        sinopse TEXT, 
                        classificacao INTEGER,
                        capa TEXT)""")
-        
+
         cursor.execute("""CREATE TABLE IF NOT EXISTS conta 
                        (ID INTEGER PRIMARY KEY,
                        email TEXT UNIQUE,
                        nome TEXT,
                        senha TEXT)""")
-        
+
         cursor.execute("""CREATE TABLE IF NOT EXISTS sessoes 
                        (ID INTEGER PRIMARY KEY,
                        horario TEXT,
                        filme INTEGER
                        )""")
-        
-        
+
+
 if __name__ == "__main__":
     criar_tabela()
