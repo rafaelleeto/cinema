@@ -2,6 +2,7 @@
 <html lang="pt-br" class="theme-dark">
   {%include "head.html"%}
   <body>
+    {%include "navybar.html"%}
     <section class="section">
       <div class="container">
         <div class="fixed-grid has-4-cols">
@@ -14,7 +15,7 @@
                 </figure>
               </div>
               <div class="card-content">
-                <h1 class="title is-4">{{filme[1]}}</h1>
+                <h1 class="title is-4 has-text-centered">{{filme[1]}}</h1>
               </div>
             </a>
             {%endfor%}
@@ -22,6 +23,5 @@
         </div>
       </div>
     </section>
-    <a href="/criar_filme">Clique aqui</a>
   </body>
 </html>
