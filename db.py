@@ -42,5 +42,17 @@ def criar_tabela():
                        )""")
 
 
+def adicionar_filme(nome: str, sinopse: str, classificacao: int, capa: str):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """ INSERT INTO filmes (nome,sinopse,classificacao,capa) VALUES (?,?,?,?)""", (nome, sinopse, classificacao, capa))
+
+
+def pegar_filmes():
+    with conectar_banco() as cursor:
+        cursor.execute("""SELECT * FROM filmes """)
+        return cursor.fetchall()
+
+
 if __name__ == "__main__":
     criar_tabela()

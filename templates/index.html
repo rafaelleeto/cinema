@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+  {%include "head.html"%}
+  <body>
+    <section class="section">
+      <div class="container">
+        <div class="fixed-grid has-4-cols">
+          <div class="grid">
+            {%for filme in filmes%}
+            <a href="/comprar_filme/{{filme[0]}}" class="card">
+              <div class="card-image">
+                <figure class="image is-2by3">
+                  <img src="{{filme[4]}}" alt="Placeholder image" />
+                </figure>
+              </div>
+              <div class="card-content">
+                <h1 class="title is-4">{{filme[1]}}</h1>
+              </div>
+            </a>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+    </section>
+    <a href="/criar_filme">Clique aqui</a>
+  </body>
+</html>
