@@ -69,8 +69,18 @@ def comprar(id):
     if not session:
         return redirect("/login")
     filme = db.pegar_filme(id)
+    sessoes = db.pegar_sessoes(id)
 
-    return render_template("comprar_filme.html", filme=filme)
+    return render_template("comprar_filme.html", filme=filme, sessoes=sessoes)
+
+
+@app.route("/criar_sessoes/<id>", methods=["GET", "POST"])
+def criar_sessao(id):
+    if request.method == "GET":
+        return render_template("criar_sessao.html")
+    horario = request.form["horario"]
+    db.criar_sessao(horario, id)
+    return redirect(f"/criar_sessoes/{id}")
 
 
 if __name__ == "__main__":

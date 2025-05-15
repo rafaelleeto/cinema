@@ -73,5 +73,17 @@ def pegar_conta(email):
         return cursor.fetchone()
 
 
+def criar_sessao(horario, filme):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """INSERT INTO  sessoes (horario,filme) VALUES (?,?) """, (horario, filme))
+
+
+def pegar_sessoes(filme_id):
+    with conectar_banco() as cursor:
+        cursor.execute("""SELECT * FROM sessoes WHERE filme=?""", (filme_id,))
+        return cursor.fetchall()
+
+
 if __name__ == "__main__":
     criar_tabela()
