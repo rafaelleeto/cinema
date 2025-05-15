@@ -64,5 +64,14 @@ def sair():
     return redirect("/")
 
 
+@app.route("/comprar_filme/<id>")
+def comprar(id):
+    if not session:
+        return redirect("/login")
+    filme = db.pegar_filme(id)
+
+    return render_template("comprar_filme.html", filme=filme)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

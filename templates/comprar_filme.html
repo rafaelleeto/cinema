@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+{%include "head.html"%}
+
+<body>
+  {%include "navybar.html"%}
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-one-third">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-2by3">
+                <img src="{{filme["capa"]}}" alt="Placeholder image" />
+              </figure>
+            </div>
+            <div class="card-content">
+              <h1 class="title is-4 has-text-centered">{{filme["nome"]}}</h1>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="card">
+            <div class="card-content">
+          <p class="title is-3 has-text-centered">Sinopse</p>
+          <p class="subtitle is-5 has-text-justified">{{filme["sinopse"]}}</p>
+        <div class="is-flex is-gap-1"> 
+          <a href="/comprar_ingresso/1" class="is-flex-shrink-0 box has-text-weight-bold">18:30</a>
+          <a href="/comprar_ingresso/2" class="is-flex-shrink-0 box has-text-weight-bold">21:30</a>
+          <a href="/comprar_ingresso/3" class="is-flex-shrink-0 box has-text-weight-bold">00:30</a>
+          <div> </div>
+
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

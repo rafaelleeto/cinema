@@ -55,6 +55,12 @@ def pegar_filmes():
         return cursor.fetchall()
 
 
+def pegar_filme(id):
+    with conectar_banco() as cursor:
+        cursor.execute(""" SELECT * FROM filmes where id=? """, (id,))
+        return cursor.fetchone()
+
+
 def criar_conta(email, nome, senha):
     with conectar_banco() as cursor:
         cursor.execute(
