@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+{%include "head.html"%}
+
+<body>
+    {%include "flash.html"%}
+
+    <form action="/registro" method="post">
+        <section class="section">
+            <div class="container">
+                <div class="field">
+                    <label class="label">Digite seu nome</label>
+                    <div class="control">
+                        <input class="input" type="text" name="nome" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Digite seu email</label>
+                    <div class="control">
+                        <input class="input" type="email" name="email" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Digite sua senha</label>
+                    <div class="control">
+                        <input class="input" type="password" name="senha1" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Confirme a senha</label>
+                    <div class="control">
+                        <input class="input" type="password" name="senha2" />
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">Criar conta</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+
+</body>
+
+</html>

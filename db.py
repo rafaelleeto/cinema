@@ -5,6 +5,7 @@ from contextlib import contextmanager
 @contextmanager
 def conectar_banco():
     conexao = sqlite3.connect("cinema.db")
+    conexao.row_factory = sqlite3.Row
     cursor = conexao.cursor()
     try:
         yield cursor
@@ -52,6 +53,18 @@ def pegar_filmes():
     with conectar_banco() as cursor:
         cursor.execute("""SELECT * FROM filmes """)
         return cursor.fetchall()
+
+
+def criar_conta(email, nome, senha):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """INSERT INTO conta (email,nome,senha) VALUES (?,?,?)""", (email, nome, senha))
+
+
+def pegar_conta(email):
+    with conectar_banco() as cursor:
+        cursor.execute("""SELECT * FROM conta WHERE email=? """, (email,))
+        return cursor.fetchone()
 
 
 if __name__ == "__main__":

@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="theme-dark">
-  {%include "head.html"%}
-  <body>
-    {%include "navybar.html"%}
-    <section class="section">
-      <div class="container">
-        <div class="fixed-grid has-4-cols">
-          <div class="grid">
-            {%for filme in filmes%}
-            <a href="/comprar_filme/{{filme[0]}}" class="card">
-              <div class="card-image">
-                <figure class="image is-2by3">
-                  <img src="{{filme[4]}}" alt="Placeholder image" />
-                </figure>
-              </div>
-              <div class="card-content">
-                <h1 class="title is-4 has-text-centered">{{filme[1]}}</h1>
-              </div>
-            </a>
-            {%endfor%}
-          </div>
+{%include "head.html"%}
+
+<body>
+  {%include "navybar.html"%}
+  <section class="section">
+    <div class="container">
+      <div class="fixed-grid has-4-cols">
+        <div class="grid">
+          {%for filme in filmes%}
+          <a href="/comprar_filme/{{filme["id"]}}" class="card">
+            <div class="card-image">
+              <figure class="image is-2by3">
+                <img src="{{filme["capa"]}}" alt="Placeholder image" />
+              </figure>
+            </div>
+            <div class="card-content">
+              <h1 class="title is-4 has-text-centered">{{filme["nome"]}}</h1>
+            </div>
+          </a>
+          {%endfor%}
         </div>
       </div>
-    </section>
-  </body>
+    </div>
+  </section>
+</body>
+
 </html>
