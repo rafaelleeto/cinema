@@ -58,5 +58,11 @@ def login():
     return redirect("/")
 
 
+@app.route("/sair")
+def sair():
+    session.pop("usuario", None)
+    return redirect("/")
+
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -28,6 +28,8 @@
         {% if not session["usuario"] %}
           <a href="/login" class="button is-link">Já tenho uma conta</a>
           <a href="/registro" class="button is-link">Não tenho uma conta</a>
+        {% else  %}
+          <a href="/sair" class="button is-link">Sair</a>
         {% endif %}
         {% if session["usuario"]==1 %}
           <a href="/criar_filmes" class="button is-link">Adicionar Filme</a>
