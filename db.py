@@ -91,5 +91,12 @@ def criar_ingresso(poltrona, sessao, meia):
             """INSERT INTO  ingressos (poltrona,sessao,meia) VALUES (?,?,?) """, (poltrona, sessao, meia))
 
 
+def pegar_ingresso(id):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """SELECT * FROM ingressos WHERE sessao=?""", (id,))
+        return cursor.fetchall()
+
+
 if __name__ == "__main__":
     criar_tabela()

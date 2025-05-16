@@ -85,7 +85,14 @@ def criar_sessao(id):
 
 @app.route("/comprar_ingresso/<sessao>")
 def comprar_ingresso(sessao):
-    return render_template("ingresso.html", sessao=sessao)
+    print(sessao)
+    ingressos = db.pegar_ingresso(sessao)
+    if not ingressos:
+        return "Nenhum ingresso encontrado para esta sessão", 404
+
+    poltronas_ocupadas = [ingresso["poltrona"] for ingresso in ingressos]
+    print(poltronas_ocupadas)
+    return render_template("ingresso.html", sessao=sessao, ingressos=poltronas_ocupadas)
 
 
 @app.route("/cadeira/<sessao>/<cadeira>", methods=["GET", "POST"])
