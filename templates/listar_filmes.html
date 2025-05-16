@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+{%include 'head.html'%}
+
+<table class="table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>NOME</th>
+      <th>SINOPSE</th>
+      <th>CLASSIFICAÇÃO</th>
+      <th>URL DA CAPA</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for filme in filmes %}
+    <tr>
+      <td>{{ filme["id"] }}</td>
+      <td>{{ filme["nome"]}}</td>
+      <td>{{ filme["sinopse"] }}</td>
+      <td>{{ filme["classificacao"] }}</td>
+      <td>{{ filme["capa"] }}</td>
+
+
+      <td><a href="/editar_filme/{{filme["id"] }}">Editar Filme</a></td>
+      <td><a href="/excluir_filme/{{filme["id"] }}">Excluir Filme</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+{%include "head.html"%}
+
+<body>
+    {%include "navybar.html"%}
+    <form method="post">
+        <section class="section">
+            <div class="container">
+
+                <div class="field">
+                    <label class="label">Digite o Horário</label>
+                    <div class="control">
+                        <input class="input" type="text" name="horario" value="{{horario[0]}}" />
+                    </div>
+                </div>
+                <div class="control">
+                    <button class="button is-link">Editar sessão</button>
+                </div>
+            </div>
+        </section>
+    </form>
+</body>
+</html>

@@ -117,9 +117,49 @@ def ver_sessao(id):
 def excluir_sessao(id):
     sessao = db.pegar_sessao_do_filme(id)
     filme_id = sessao["filme"]
-    print(sessao)
     db.deletar_sessao(id)
     return redirect(url_for("ver_sessao", id=filme_id))
+
+
+@app.route("/editar/<id>", methods=["GET", "POST"])
+def editar_sessao(id):
+    if request.method == "GET":
+        horario = db.pegar_horario_sessao(id)
+        return render_template("editar_sessao.html", horario=horario)
+    novo_horario = request.form["horario"]
+    db.atualizar_horario_sessao(novo_horario, id)
+    sessao = db.pegar_sessao_do_filme(id)
+    filme_id = sessao["filme"]
+    return redirect(url_for("ver_sessao", id=filme_id))
+
+
+@app.route("/listar_filmes")
+def listar_filmes():
+    if request.method == "GET":
+        filmes = db.pegar_filmes()
+        print(filmes)
+        return render_template("listar_filmes.html", filmes=filmes)
+
+
+@app.route("/excluir_filme/<id>")
+def excluir_filme(id):
+    db.excluir_filme(id)
+    return redirect("/listar_filmes")
+
+
+@app.route("/editar_filme/<id>", methods=["GET", "POST"])
+def editar_filme(id):
+    if request.method == "GET":
+        filmes = db.pegar_filme(id)
+        print(filmes)
+        return render_template("editar_filme.html", filmes=filmes)
+
+    nome = request.form["nome"]
+    sinopse = request.form["sinopse"]
+    classificacao = request.form["classificacao"]
+    capa = request.form["capa"]
+    db.atualizar_filme(nome, sinopse, classificacao, capa, id)
+    return redirect("/listar_filmes")
 
 
 if __name__ == "__main__":

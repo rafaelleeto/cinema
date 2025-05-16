@@ -17,26 +17,26 @@ def conectar_banco():
 
 def criar_tabela():
     with conectar_banco() as cursor:
-        cursor.execute(""" CREATE TABLE IF NOT EXISTS ingressos 
-                       (ID INTEGER PRIMARY KEY, 
-                       poltrona INTEGER, 
-                       sessao INTEGER, 
+        cursor.execute(""" CREATE TABLE IF NOT EXISTS ingressos
+                       (ID INTEGER PRIMARY KEY,
+                       poltrona INTEGER,
+                       sessao INTEGER,
                        meia INTEGER)""")
 
         cursor.execute(""" CREATE TABLE IF NOT EXISTS filmes
                        (ID INTEGER PRIMARY KEY,
-                       nome TEXT, 
-                       sinopse TEXT, 
+                       nome TEXT,
+                       sinopse TEXT,
                        classificacao INTEGER,
                        capa TEXT)""")
 
-        cursor.execute("""CREATE TABLE IF NOT EXISTS conta 
+        cursor.execute("""CREATE TABLE IF NOT EXISTS conta
                        (ID INTEGER PRIMARY KEY,
                        email TEXT UNIQUE,
                        nome TEXT,
                        senha TEXT)""")
 
-        cursor.execute("""CREATE TABLE IF NOT EXISTS sessoes 
+        cursor.execute("""CREATE TABLE IF NOT EXISTS sessoes
                        (ID INTEGER PRIMARY KEY,
                        horario TEXT,
                        filme INTEGER
@@ -45,7 +45,7 @@ def criar_tabela():
 
 def adicionar_filme(nome: str, sinopse: str, classificacao: int, capa: str):
     with conectar_banco() as cursor:
-        cursor.execute(""" INSERT INTO filmes (nome,sinopse,classificacao,capa) VALUES 
+        cursor.execute(""" INSERT INTO filmes (nome,sinopse,classificacao,capa) VALUES
                        (?,?,?,?)""", (nome, sinopse, classificacao, capa))
 
 
@@ -111,6 +111,47 @@ def pegar_sessao_do_filme(id):
         cursor.execute(
             """SELECT  filme FROM sessoes WHERE id=?""", (id,))
         return cursor.fetchone()
+
+
+def pegar_horario_sessao(id):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """SELECT horario FROM sessoes WHERE id=?""", (id,))
+        return cursor.fetchone()
+
+
+def atualizar_horario_sessao(horario, id):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """UPDATE sessoes SET horario=? WHERE id=?""", (horario, id))
+
+
+def pegar_id_sessao(filme_id):
+    with conectar_banco() as cursor:
+        cursor.execute("""SELECT id FROM sessoes WHERE filme=?""", (filme_id,))
+        return cursor.fetchall()
+
+
+def excluir_filme(id):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """DELETE  FROM filmes WHERE id=?""", (id,))
+        sessoes = pegar_id_sessao(id)
+
+        if sessoes:
+            for sessao in sessoes:
+                sessao_id = sessao[0]
+                cursor.execute(
+                    """DELETE  FROM sessoes WHERE filme=?""", (id,))
+
+                cursor.execute(
+                    """DELETE  FROM ingressos WHERE filme=?""", (sessao_id,))
+
+
+def atualizar_filme(nome, sinopse, classificacao, capa, id):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """UPDATE filmes SET nome=?,sinopse=?,classificacao=?,capa=? WHERE id=?""", (nome, sinopse, classificacao, capa, id))
 
 
 if __name__ == "__main__":

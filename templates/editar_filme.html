@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+{%include 'head.html'%}
+
+
+<body>
+  <form  method="post">
+    <section class="section">
+      <div class="container">
+        <div class="field">
+          <label class="label">Nome do Filme</label>
+          <div class="control">
+            <input class="input" type="text" name="nome" placeholder="Digite o nome" value="{{filmes["nome"]}}" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Digite a sinopse do filme</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="Sinopse" name="sinopse" >{{filmes["sinopse"]}}</textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Escolha a classificação Indicativa</label>
+          <div class="control">
+            <div class="select">
+              <select name="classificacao">
+                <option value="livre" {% if filmes["classificacao"] == "livre" %}selected{% endif %}>Livre</option>                
+                <option value="14" {% if filmes["classificacao"] == 14 %}selected{% endif %} >14 Anos</option>
+                <option value="16" {% if filmes["classificacao"] == 16 %}selected{% endif %}>16 Anos</option>
+                <option value="18" {% if filmes["classificacao"] == 18 %}selected{% endif %}>18 Anos</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Cole o link da URL da capa</label>
+          <div class="control">
+            <input class="input" type="text" name="capa"  value={{filmes["capa"]}} />
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Editar filme</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </form>
+</body>
+
+</html>
