@@ -28,7 +28,7 @@
           <p class="subtitle is-5 has-text-justified">{{filme["sinopse"]}}</p>
         <div class="is-flex is-gap-1"> 
           {% for sessao in  sessoes %}
-          <a href="/comprar_ingresso/1" class="is-flex-shrink-0 box has-text-weight-bold">{{sessao["horario"]}}</a>
+          <a href="/comprar_ingresso/{{filme["id"]}}" class="is-flex-shrink-0 box has-text-weight-bold">{{sessao["horario"]}}</a>
           {% endfor %}
           {% if session["usuario"]==1 %}
           <a href="/criar_sessoes/{{filme["id"]}}" class="button is-link">Adicionar Sessão</a>

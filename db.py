@@ -45,8 +45,8 @@ def criar_tabela():
 
 def adicionar_filme(nome: str, sinopse: str, classificacao: int, capa: str):
     with conectar_banco() as cursor:
-        cursor.execute(
-            """ INSERT INTO filmes (nome,sinopse,classificacao,capa) VALUES (?,?,?,?)""", (nome, sinopse, classificacao, capa))
+        cursor.execute(""" INSERT INTO filmes (nome,sinopse,classificacao,capa) VALUES 
+                       (?,?,?,?)""", (nome, sinopse, classificacao, capa))
 
 
 def pegar_filmes():
@@ -83,6 +83,12 @@ def pegar_sessoes(filme_id):
     with conectar_banco() as cursor:
         cursor.execute("""SELECT * FROM sessoes WHERE filme=?""", (filme_id,))
         return cursor.fetchall()
+
+
+def criar_ingresso(poltrona, sessao, meia):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """INSERT INTO  ingressos (poltrona,sessao,meia) VALUES (?,?,?) """, (poltrona, sessao, meia))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+{%include "head.html"%}
+
+<body>
+
+    <section class="section">
+        <div class="container">
+            <div class="fixed-grid has-10-cols">
+                <div class="grid">
+
+                    {% for i in range(1,151) %}
+                    <a href="/cadeira/{{sessao}}/{{i}}"><img src="/static/img/SVG_VERDE.svg" alt=""></a>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</body>

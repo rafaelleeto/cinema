@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+{%include "head.html"%}
+
+<body>
+    <form action="" method="post">
+        <section class="section">
+            <div class="container">
+                <div class="field">
+                    <label class="label">Digite seu nome</label>
+                    <div class="control">
+                        <input class="input" type="text" name="nome" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Digite o CPF</label>
+                    <div class="control">
+                        <input class="input" type="text" name="cpf" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Meia</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="meia">
+                                <option value="sim">Meia</option>
+                                <option value="nao">Sem meia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Método de pagamento</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="Cartao">
+                                <option>Cartão de crédito</option>
+                                <option>Boleto</option>
+                                <option>Dinheiro Físico</option>
+                                <option>PIX</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">Comprar ingresso</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</body>

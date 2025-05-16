@@ -83,5 +83,25 @@ def criar_sessao(id):
     return redirect(f"/criar_sessoes/{id}")
 
 
+@app.route("/comprar_ingresso/<sessao>")
+def comprar_ingresso(sessao):
+    return render_template("ingresso.html", sessao=sessao)
+
+
+@app.route("/cadeira/<sessao>/<cadeira>", methods=["GET", "POST"])
+def comprar_cadeira(sessao, cadeira):
+    if request.method == "GET":
+        return render_template("comprar_cadeira.html")
+    meia = request.form["meia"]
+    if meia == "sim":
+        meia = 1
+    else:
+        meia = 0
+
+    db.criar_ingresso(cadeira, sessao, meia)
+    flash("Compra efetuada com sucesso!")
+    return redirect("/")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
