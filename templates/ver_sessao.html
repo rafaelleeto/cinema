@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+{%include 'head.html'%}
+
+<table class="table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>FILME</th>
+      <th>HORARIO</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sessao in sessoes %}
+    <tr>
+      <td>{{ sessao["id"] }}</td>
+      <td>{{ sessao["filme"]}}</td>
+      <td>{{ sessao["horario"] }}</td>
+      <td><a href="/editar/{{sessao["id"] }}">Editar Sessão</a></td>
+      <td><a href="/excluir/{{sessao["id"] }}">Excluir Sessão</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

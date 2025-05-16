@@ -98,5 +98,20 @@ def pegar_ingresso(id):
         return cursor.fetchall()
 
 
+def deletar_sessao(id):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """DELETE  FROM sessoes WHERE id=?""", (id,))
+        cursor.execute(
+            """DELETE  FROM ingressos WHERE sessao=?""", (id,))
+
+
+def pegar_sessao_do_filme(id):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """SELECT  filme FROM sessoes WHERE id=?""", (id,))
+        return cursor.fetchone()
+
+
 if __name__ == "__main__":
     criar_tabela()

@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, session, request, flash
+from flask import Flask, redirect, render_template, session, request, flash, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 import db
 
@@ -87,9 +87,6 @@ def criar_sessao(id):
 def comprar_ingresso(sessao):
     print(sessao)
     ingressos = db.pegar_ingresso(sessao)
-    if not ingressos:
-        return "Nenhum ingresso encontrado para esta sessão", 404
-
     poltronas_ocupadas = [ingresso["poltrona"] for ingresso in ingressos]
     print(poltronas_ocupadas)
     return render_template("ingresso.html", sessao=sessao, ingressos=poltronas_ocupadas)
@@ -108,6 +105,21 @@ def comprar_cadeira(sessao, cadeira):
     db.criar_ingresso(cadeira, sessao, meia)
     flash("Compra efetuada com sucesso!")
     return redirect("/")
+
+
+@app.route("/ver_sessao/<id>")
+def ver_sessao(id):
+    sessoes = db.pegar_sessoes(id)
+    return render_template("ver_sessao.html", sessoes=sessoes)
+
+
+@app.route("/excluir/<id>")
+def excluir_sessao(id):
+    sessao = db.pegar_sessao_do_filme(id)
+    filme_id = sessao["filme"]
+    print(sessao)
+    db.deletar_sessao(id)
+    return redirect(url_for("ver_sessao", id=filme_id))
 
 
 if __name__ == "__main__":
