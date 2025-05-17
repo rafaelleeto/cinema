@@ -88,7 +88,6 @@ def comprar_ingresso(sessao):
     print(sessao)
     ingressos = db.pegar_ingresso(sessao)
     poltronas_ocupadas = [ingresso["poltrona"] for ingresso in ingressos]
-    print(poltronas_ocupadas)
     return render_template("ingresso.html", sessao=sessao, ingressos=poltronas_ocupadas)
 
 
@@ -102,7 +101,7 @@ def comprar_cadeira(sessao, cadeira):
     else:
         meia = 0
 
-    db.criar_ingresso(cadeira, sessao, meia)
+    db.criar_ingresso(cadeira, sessao, meia, session["usuario"])
     flash("Compra efetuada com sucesso!")
     return redirect("/")
 
@@ -160,6 +159,20 @@ def editar_filme(id):
     capa = request.form["capa"]
     db.atualizar_filme(nome, sinopse, classificacao, capa, id)
     return redirect("/listar_filmes")
+
+
+@app.route("/reembolso")
+def reembolso():
+    ingressos = db.pegar_ingressos_conta(session["usuario"])
+    poltronas_ocupadas = [ingresso["poltrona"] for ingresso in ingressos]
+    return render_template("reembolso.html", ingressos=poltronas_ocupadas)
+
+
+@app.route("/reembolsar/<id>")
+def reembolsar(id):
+    db.excluir_ingresso(id)
+    flash("Cadeira reembolsada com sucesso")
+    return redirect("/reembolso")
 
 
 if __name__ == "__main__":

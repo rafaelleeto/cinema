@@ -21,7 +21,8 @@ def criar_tabela():
                        (ID INTEGER PRIMARY KEY,
                        poltrona INTEGER,
                        sessao INTEGER,
-                       meia INTEGER)""")
+                       meia INTEGER,
+                       conta_id INTEGER)""")
 
         cursor.execute(""" CREATE TABLE IF NOT EXISTS filmes
                        (ID INTEGER PRIMARY KEY,
@@ -85,10 +86,10 @@ def pegar_sessoes(filme_id):
         return cursor.fetchall()
 
 
-def criar_ingresso(poltrona, sessao, meia):
+def criar_ingresso(poltrona, sessao, meia, conta):
     with conectar_banco() as cursor:
         cursor.execute(
-            """INSERT INTO  ingressos (poltrona,sessao,meia) VALUES (?,?,?) """, (poltrona, sessao, meia))
+            """INSERT INTO  ingressos (poltrona,sessao,meia,conta_id) VALUES (?,?,?,?) """, (poltrona, sessao, meia, conta))
 
 
 def pegar_ingresso(id):
@@ -152,6 +153,18 @@ def atualizar_filme(nome, sinopse, classificacao, capa, id):
     with conectar_banco() as cursor:
         cursor.execute(
             """UPDATE filmes SET nome=?,sinopse=?,classificacao=?,capa=? WHERE id=?""", (nome, sinopse, classificacao, capa, id))
+
+
+def pegar_ingressos_conta(conta_id):
+    with conectar_banco() as cursor:
+        cursor.execute(
+            """SELECT * FROM ingressos WHERE conta_id=?""", (conta_id,))
+        return cursor.fetchall()
+
+
+def excluir_ingresso(id):
+    with conectar_banco() as cursor:
+        cursor.execute("""DELETE FROM ingressos WHERE poltrona=?""", (id,))
 
 
 if __name__ == "__main__":
