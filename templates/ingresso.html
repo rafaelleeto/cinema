@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="theme-dark">
-{%include "head.html"%}
+{% include "head.html" %}
 
 <body>
     {% include "navybar.html" %}
-
 
     <section class="section">
         <div class="container">
             <div class="fixed-grid has-10-cols">
                 <div class="grid">
-                    {% for i in range(1,151) %}
-                    {% if i in ingressos %}
-                    <img src="/static/img/SVG_VERMELHO.svg">
-                    {% else %}
-                    <a href="/cadeira/{{sessao}}/{{i}}">
-                        <img src="/static/img/SVG_VERDE.svg">
-                    </a>
-                    {% endif %}
+                    {% for i in range(1, 151) %}
+                        <div class="chair">
+                            {% if i in ingressos %}
+                                <img src="/static/img/SVG_VERMELHO.svg" alt="Cadeira {{ i }}">
+                            {% else %}
+                                <a href="/cadeira/{{ sessao }}/{{ i }}">
+                                    <img src="/static/img/SVG_VERDE.svg" alt="Cadeira {{ i }}">
+                                </a>
+                            {% endif %}
+                            <!-- Número da cadeira -->
+                            <p class="chair-number">{{ i }}</p>
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -27,21 +30,26 @@
     <style>
         .grid {
             display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            /* 10 colunas */
-            gap: 10px;
+            grid-template-columns: repeat(10, 1fr); /* 10 colunas */
+            gap: 5px;
         }
 
-        .grid img {
-            width: 40px;
+        .chair {
+            text-align: center;
+        }
+
+        .chair img {
+            width: 40px; /* Tamanho da cadeira */
             height: 40px;
             object-fit: contain;
-            /* Para garantir que a imagem se ajuste corretamente */
         }
 
-        .grid a {
-            display: block;
+        .chair-number {
+            font-size: 20px;
+            margin-top: 5px;
+            color: #333; 
         }
     </style>
 
 </body>
+</html>

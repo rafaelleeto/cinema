@@ -102,7 +102,7 @@ def comprar_cadeira(sessao, cadeira):
         meia = 0
 
     toda_sessao = db.pegar_sessao_com_id_da_sessao(sessao)
-    primeira_linha = toda_sessao[0]  # A primeira linha de dados
+    primeira_linha = toda_sessao[0]
     filme_id = primeira_linha["filme"]
     nome_filme = db.pegar_filme(filme_id)
     print(nome_filme.keys())
