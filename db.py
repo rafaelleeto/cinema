@@ -22,7 +22,9 @@ def criar_tabela():
                        poltrona INTEGER,
                        sessao INTEGER,
                        meia INTEGER,
-                       conta_id INTEGER)""")
+                       conta_id INTEGER,
+                       nome_filme,
+                       capa)""")
 
         cursor.execute(""" CREATE TABLE IF NOT EXISTS filmes
                        (ID INTEGER PRIMARY KEY,
@@ -86,10 +88,10 @@ def pegar_sessoes(filme_id):
         return cursor.fetchall()
 
 
-def criar_ingresso(poltrona, sessao, meia, conta):
+def criar_ingresso(poltrona, sessao, meia, conta, nome, capa):
     with conectar_banco() as cursor:
         cursor.execute(
-            """INSERT INTO  ingressos (poltrona,sessao,meia,conta_id) VALUES (?,?,?,?) """, (poltrona, sessao, meia, conta))
+            """INSERT INTO  ingressos (poltrona,sessao,meia,conta_id,nome_filme,capa) VALUES (?,?,?,?,?,?) """, (poltrona, sessao, meia, conta, nome, capa))
 
 
 def pegar_ingresso(id):
@@ -165,6 +167,12 @@ def pegar_ingressos_conta(conta_id):
 def excluir_ingresso(id):
     with conectar_banco() as cursor:
         cursor.execute("""DELETE FROM ingressos WHERE poltrona=?""", (id,))
+
+
+def pegar_sessao_com_id_da_sessao(id_sessao):
+    with conectar_banco() as cursor:
+        cursor.execute("""SELECT * FROM sessoes WHERE id=?""", (id_sessao,))
+        return cursor.fetchall()
 
 
 if __name__ == "__main__":

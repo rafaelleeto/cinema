@@ -101,7 +101,16 @@ def comprar_cadeira(sessao, cadeira):
     else:
         meia = 0
 
-    db.criar_ingresso(cadeira, sessao, meia, session["usuario"])
+    toda_sessao = db.pegar_sessao_com_id_da_sessao(sessao)
+    primeira_linha = toda_sessao[0]  # A primeira linha de dados
+    filme_id = primeira_linha["filme"]
+    nome_filme = db.pegar_filme(filme_id)
+    print(nome_filme.keys())
+    nome = nome_filme[1]
+    capa = nome_filme[4]
+
+    db.criar_ingresso(cadeira, sessao, meia,
+                      session["usuario"], nome, capa)
     flash("Compra efetuada com sucesso!")
     return redirect("/")
 
@@ -173,6 +182,12 @@ def reembolsar(id):
     db.excluir_ingresso(id)
     flash("Cadeira reembolsada com sucesso")
     return redirect("/reembolso")
+
+
+@app.route("/ver_meus_ingressos")
+def ver_ingressos():
+    ingressos = db.pegar_ingressos_conta(session["usuario"])
+    return render_template("ver_ingressos.html", ingressos=ingressos,)
 
 
 if __name__ == "__main__":

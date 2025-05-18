@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="theme-dark">
+{% include 'head.html' %}
+
+<body>
+    
+    <section class="section">
+        <div class="container">
+            <div class="fixed-grid has-4-cols">
+                <div class="grid">
+                    {% for ingresso in ingressos %}
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-2by3">
+                                    <img src="{{ ingresso["capa"] }}" alt="Capa do filme {{ ingresso['nome_filme'] }}" />
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <h1 class="title is-4 has-text-centered">{{ ingresso["nome_filme"] }}</h1>
+                                
+                                <!-- Additional movie ticket details -->
+                                <p class="title is-3 has-text-centered">CADEIRA: {{ ingresso["poltrona"] }}</p>
+                                <p class="title is-3 has-text-centered">SESSÃO: {{ ingresso["sessao"] }}</p>
+                                
+                                {% if ingresso["meia"] == 1 %}
+                                    <p class="title is-3 has-text-centered">COM MEIA</p>
+                                {% else %}
+                                    <p class="title is-3 has-text-centered">SEM MEIA</p>
+                                {% endif %}
+                                
+                                <p class="title is-3 has-text-centered">NOME DO FILME: {{ ingresso["nome_filme"] }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
