@@ -14,7 +14,11 @@ def index():
 
 @app.route("/criar_filmes", methods=["GET", "POST"])
 def criar_filmes():
+
     if request.method == "GET":
+        if session["usuario"] != 1:
+            flash("Você não tem permissão para fazer isso")
+            return redirect("/")
         return render_template("criar_filme.html")
     nome = request.form["nome"]
     sinopse = request.form["sinopse"]
@@ -77,6 +81,9 @@ def comprar(id):
 @app.route("/criar_sessoes/<id>", methods=["GET", "POST"])
 def criar_sessao(id):
     if request.method == "GET":
+        if session["usuario"] != 1:
+            flash("Você não tem permissão para fazer isso")
+            return redirect("/")
         return render_template("criar_sessao.html")
     horario = request.form["horario"]
     db.criar_sessao(horario, id)
@@ -117,12 +124,18 @@ def comprar_cadeira(sessao, cadeira):
 
 @app.route("/ver_sessao/<id>")
 def ver_sessao(id):
+    if session["usuario"] != 1:
+        flash("Você não tem permissão para fazer isso")
+        return redirect("/")
     sessoes = db.pegar_sessoes(id)
     return render_template("ver_sessao.html", sessoes=sessoes)
 
 
 @app.route("/excluir/<id>")
 def excluir_sessao(id):
+    if session["usuario"] != 1:
+        flash("Você não tem permissão para fazer isso")
+        return redirect("/")
     sessao = db.pegar_sessao_do_filme(id)
     filme_id = sessao["filme"]
     db.deletar_sessao(id)
@@ -131,6 +144,9 @@ def excluir_sessao(id):
 
 @app.route("/editar/<id>", methods=["GET", "POST"])
 def editar_sessao(id):
+    if session["usuario"] != 1:
+        flash("Você não tem permissão para fazer isso")
+        return redirect("/")
     if request.method == "GET":
         horario = db.pegar_horario_sessao(id)
         return render_template("editar_sessao.html", horario=horario)
@@ -144,13 +160,19 @@ def editar_sessao(id):
 @app.route("/listar_filmes")
 def listar_filmes():
     if request.method == "GET":
-        filmes = db.pegar_filmes()
-        print(filmes)
-        return render_template("listar_filmes.html", filmes=filmes)
+        if session["usuario"] != 1:
+            flash("Você não tem permissão para fazer isso")
+            return redirect("/")
+    filmes = db.pegar_filmes()
+    print(filmes)
+    return render_template("listar_filmes.html", filmes=filmes)
 
 
 @app.route("/excluir_filme/<id>")
 def excluir_filme(id):
+    if session["usuario"] != 1:
+        flash("Você não tem permissão para fazer isso")
+        return redirect("/")
     db.excluir_filme(id)
     return redirect("/listar_filmes")
 
@@ -158,6 +180,9 @@ def excluir_filme(id):
 @app.route("/editar_filme/<id>", methods=["GET", "POST"])
 def editar_filme(id):
     if request.method == "GET":
+        if session["usuario"] != 1:
+            flash("Você não tem permissão para fazer isso")
+            return redirect("/")
         filmes = db.pegar_filme(id)
         print(filmes)
         return render_template("editar_filme.html", filmes=filmes)
@@ -170,23 +195,29 @@ def editar_filme(id):
     return redirect("/listar_filmes")
 
 
-@app.route("/reembolso")
-def reembolso():
-    ingressos = db.pegar_ingressos_conta(session["usuario"])
-    poltronas_ocupadas = [ingresso["poltrona"] for ingresso in ingressos]
-    return render_template("reembolso.html", ingressos=poltronas_ocupadas)
+# @app.route("/reembolso")
+# def reembolso():
+#    ingressos = db.pegar_ingressos_conta(session["usuario"])
+#    poltronas_ocupadas = [ingresso["poltrona"] for ingresso in ingressos]              !!!!! FUNÇÃO DESABILITADA !!!!
+#    if not poltronas_ocupadas:
+#       flash("Você não tem possui nenhum ingresso comprado!")
+#        return redirect("/")
+#     return render_template("reembolso.html", ingressos=poltronas_ocupadas)"""
 
 
 @app.route("/reembolsar/<id>")
 def reembolsar(id):
     db.excluir_ingresso(id)
-    flash("Cadeira reembolsada com sucesso")
-    return redirect("/reembolso")
+    flash("Ingresso reembolsado com sucesso")
+    return redirect("/")
 
 
 @app.route("/ver_meus_ingressos")
 def ver_ingressos():
     ingressos = db.pegar_ingressos_conta(session["usuario"])
+    if not ingressos:
+        flash("Você não possui nenhum ingresso!")
+        return redirect("/")
     return render_template("ver_ingressos.html", ingressos=ingressos,)
 
 
