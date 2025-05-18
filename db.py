@@ -148,7 +148,7 @@ def excluir_filme(id):
                     """DELETE  FROM sessoes WHERE filme=?""", (id,))
 
                 cursor.execute(
-                    """DELETE  FROM ingressos WHERE filme=?""", (sessao_id,))
+                    """DELETE  FROM ingressos WHERE sessao=?""", (sessao_id,))
 
 
 def atualizar_filme(nome, sinopse, classificacao, capa, id):
